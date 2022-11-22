@@ -6,6 +6,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { NavBar } from '../components/NavBar';
 import { addHours } from 'date-fns/esm';
 import { localizer ,getMessagesES} from '../../helper';
+import { CalendarEvent } from '../components/CalendarEvent';
 
 
 
@@ -17,13 +18,13 @@ import { localizer ,getMessagesES} from '../../helper';
     bgColor:'#ccc',
     user:{
         _id:'123',
-        name:'Lola Monasterio'
+        name:'Lola'
     }
   }]
 export const CalendarPage = () => {
 
     const eventStyleGetter = (event,start,end,isSelected) => {
-        console.log({event,start,end,isSelected});
+    
 
         const style = {
             backgroundColor:'#347CF7',
@@ -45,6 +46,9 @@ export const CalendarPage = () => {
       style={{ height: 500 }}
       messages={ getMessagesES() }
       eventPropGetter={ eventStyleGetter }
+      components={{
+        event:CalendarEvent
+      }}
     />
     </div>
   )
