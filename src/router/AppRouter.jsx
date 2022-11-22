@@ -6,11 +6,12 @@ import { CalendarPage } from '../calendar';
 
 export const AppRouter = () => {
 
-    const authStatus = 'not-authenticated';
-
+    const authStatus = 'authendicated';
+//'authendicated'
+//'not-authenticated'
   return (
     <Routes>
-        {  todo
+        { 
             (authStatus === 'not-authenticated')
             ?<Route path='/auth/*' element={ <LoginPage /> } />
             :<Route path='/*' element={ <CalendarPage /> } />
