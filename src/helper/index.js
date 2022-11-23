@@ -1,2 +1,2 @@
 export * from './calendarLocalizer';
-export * from './getMessagesEs';
+export * from './getMessagesES'
