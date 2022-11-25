@@ -4,8 +4,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 
 import { NavBar } from '../components/NavBar';
-import { addHours } from 'date-fns/esm';
-import { localizer ,getMessagesES} from '../../helper';
+
+import { localizer, getMessagesES } from '../../helper';
 import { CalendarEvent } from '../components/CalendarEvent';
 import { CalendarModal } from '../components/CalendarModal';
 import { useUiStore } from '../../hooks';
@@ -15,55 +15,58 @@ import { useCalendarStore } from '../../hooks/useCalendarStore';
 
 
 export const CalendarPage = () => {
-  const { events } =useCalendarStore()
-  const { openDateModal, } = useUiStore();
-    const [lastView, setLastView] = useState(localStorage.getItem('lastView')||'week')
 
-    const eventStyleGetter = (event,start,end,isSelected) => {
-    
+  const { events, setActiveEvent } = useCalendarStore();
 
-        const style = {
-            backgroundColor:'#347CF7',
-            borderRadius:'0px',
-            opacity:0.8,
-            color:'white'
-        }
-    }
+  const { openDateModal } = useUiStore();
 
-    const onDoubleClick = (event) => {
-       // console.log({dobleClick: event})
-       openDateModal();
-    }
+  const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week')
 
-    const  onSelect = (event) => {
-  
-        console.log({click: event});
+  const eventStyleGetter = (event, start, end, isSelected) => {
+
+
+    const style = {
+      backgroundColor: '#347CF7',
+      borderRadius: '0px',
+      opacity: 0.8,
+      color: 'white'
     }
-    const onViewChanged = (event) => {
-        localStorage.setItem('lastView', event);
-    }
+  }
+
+  const onDoubleClick = (event) => {
+    // console.log({dobleClick: event})
+    openDateModal();
+  }
+
+  const onSelect = (event) => {
+    setActiveEvent( event );
+    //console.log({ click: event });
+  }
+  const onViewChanged = (event) => {
+    localStorage.setItem('lastView', event);
+  }
 
   return (
     <div>
-        <NavBar />
-        <Calendar
+      <NavBar />
+      <Calendar
         culture='es'
-      localizer={ localizer }
-      events={ events }
-      defaultView={ lastView }
-      startAccessor="start"
-      endAccessor="end"
-      style={{ height: 500 }}
-      messages={ getMessagesES() }
-      eventPropGetter={ eventStyleGetter }
-      components={{
-        event:CalendarEvent
-      }}
-      onDoubleClickEvent={ onDoubleClick }
-      onSelectEvent={ onSelect }
-      onView={ onViewChanged }
-    />
-    <CalendarModal />
+        localizer={localizer}
+        events={events}
+        defaultView={lastView}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 500 }}
+        messages={getMessagesES()}
+        eventPropGetter={eventStyleGetter}
+        components={{
+          event: CalendarEvent
+        }}
+        onDoubleClickEvent={onDoubleClick}
+        onSelectEvent={onSelect}
+        onView={onViewChanged}
+      />
+      <CalendarModal />
     </div>
   )
 }
