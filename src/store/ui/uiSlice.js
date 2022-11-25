@@ -9,10 +9,10 @@ export const uiSlice = createSlice({
   },
   reducers: {
   
-    isDateModalOpen: (state) => {
+    onOpenDateModal: (state) => {
         state.isDateModalOpen=true;
     },
-    isDateModalOpen: (state) => {
+    onCloseDateModal: (state) => {
       
         state.isDateModalOpen= false;
     }
@@ -22,6 +22,6 @@ export const uiSlice = createSlice({
 
 // Action creators are generated for each case reducer function
     
-    export const {   isDateModalOpen,oncloseDateModal } = uiSlice.actions
+    export const {   onOpenDateModal,onCloseDateModal } = uiSlice.actions
 
 export default uiSlice

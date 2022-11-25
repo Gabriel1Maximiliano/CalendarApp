@@ -7,6 +7,7 @@ import React, { useMemo, useState } from 'react'
 import Modal from 'react-modal';
 import es from 'date-fns/locale/es';
 import Swal from 'sweetalert2';
+import { useUiStore } from '../../hooks';
 
 registerLocale('es', es);
 
@@ -26,7 +27,9 @@ Modal.setAppElement('#root');
 
 export const CalendarModal = () => {
 
-    const [isOpen, setisOpen] = useState(true);
+     const { isDateModalOpen,closeDateModal }= useUiStore();
+  
+    const [isOpen, setisOpen] = useState(true); 
 
     const [formSubmited, setFormSubmited] = useState(false)
 
@@ -74,12 +77,13 @@ const onSubmit = (event) => {
 
 const onCloseModal = () => {
     console.log('cerrando modal')
-    setisOpen( false );
+    closeDateModal()
+    
 }
 
     return (
         <Modal
-        isOpen={isOpen}
+        isOpen={isDateModalOpen}
         onRequestClose={onCloseModal}
         style={customStyles}
         className='modal'
