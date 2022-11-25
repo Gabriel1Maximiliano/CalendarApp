@@ -9,22 +9,13 @@ import { localizer ,getMessagesES} from '../../helper';
 import { CalendarEvent } from '../components/CalendarEvent';
 import { CalendarModal } from '../components/CalendarModal';
 import { useUiStore } from '../../hooks';
+import { useCalendarStore } from '../../hooks/useCalendarStore';
 
 
 
-  const events = [{
-    title:'Cumple de Lola',
-    notes:'Le gusta la torta de crema y frutilla',
-    start: new Date(),
-    end: addHours( new Date(),2 ),
-    bgColor:'#ccc',
-    user:{
-        _id:'123',
-        name:'Lola'
-    }
-  }]
+
 export const CalendarPage = () => {
-  
+  const { events } =useCalendarStore()
   const { openDateModal, } = useUiStore();
     const [lastView, setLastView] = useState(localStorage.getItem('lastView')||'week')
 
