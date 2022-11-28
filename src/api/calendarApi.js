@@ -12,4 +12,13 @@ const { REACT_APP_VITE_API_URL } =  getEncVariables();
 
 //Todo config interceptors
 
+calendarApi.interceptors.request.use(config=>{
+config.headers={
+   ...config.headers,
+   'x-token':localStorage.getItem('token')
+}
+
+   return config;
+})
+
 export default  calendarApi

@@ -45,6 +45,23 @@ dispatch(onChecking());
           }, 10);
         }
       }
+
+      const checkAuthToken = async()=>{
+        const token = localStorage.getItem('token');
+        if( !token ){
+          return dispatch( onLogout() );
+        }
+
+        try {
+          const { data } = await calendarApi.get('auth/renewToken');
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('token-init-date', new Date().getTime());
+          dispatch( onLogin({ name:data.name,uid:data.id }) );
+        } catch (error) {
+          localStorage.clear();
+          dispatch( onLogout() );
+        }
+      }
   return{
     //* Properties
     status,
@@ -54,5 +71,6 @@ dispatch(onChecking());
     //*Methods
     startLogin,
     startRegisterUser,
+    checkAuthToken
   }
 }
