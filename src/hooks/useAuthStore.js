@@ -62,6 +62,11 @@ dispatch(onChecking());
           dispatch( onLogout() );
         }
       }
+
+      const startLogout = () => {
+        localStorage.clear();
+        dispatch( onLogout() );
+      }
   return{
     //* Properties
     status,
@@ -71,6 +76,7 @@ dispatch(onChecking());
     //*Methods
     startLogin,
     startRegisterUser,
-    checkAuthToken
+    checkAuthToken,
+    startLogout
   }
 }
