@@ -1,8 +1,9 @@
+import { useAuthStore } from '../../hooks/useAuthStore';
 import { useForm } from '../../hooks/useForm';
 import './LoginPage.css';
 
 const loginFormFields ={
-    loginName:'',
+    loginPassword:'',
     loginEmail:''
 };
 
@@ -15,13 +16,15 @@ const registerFormFields ={
 
 export const LoginPage = () => {
 
-   const { loginName, loginEmail,  onInputChange:onLoginChange, } = useForm( loginFormFields );
+   const { loginPassword, loginEmail,  onInputChange:onLoginChange, } = useForm( loginFormFields );
 
    const {  registerName,registerEmail,registerPassword1,registerPassword2, onInputChange:onRegisterChange, } = useForm( registerFormFields );
+
+   const { startLogin } =useAuthStore();
   
  const onLoginSubmit = ( event ) => {
     event.preventDefault();
-    console.log('en login');
+    startLogin({email:loginEmail,password:loginPassword });
  };
 
  const onRegsiterSubmit = ( event ) => {
@@ -40,8 +43,8 @@ export const LoginPage = () => {
                                 type="text"
                                 className="form-control"
                                 placeholder="Correo"
-                                name='loginName'
-                                value={ loginName }
+                                name='loginEmail'
+                                value={ loginEmail }
                                 onChange={ onLoginChange }
                             />
                         </div>
@@ -50,8 +53,8 @@ export const LoginPage = () => {
                                 type="password"
                                 className="form-control"
                                 placeholder="Contraseña"
-                                name='loginEmail'
-                                value={ loginEmail }
+                                name='loginPassword'
+                                value={ loginPassword }
                                 onChange={ onLoginChange }
                             />
                         </div>

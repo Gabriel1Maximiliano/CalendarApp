@@ -1,4 +1,5 @@
-import getEncVariables from '../helpers/getEncVariables';
+import axios from 'axios';
+import { getEncVariables } from '../helpers/getEncVariables';
 
 
 const { REACT_APP_VITE_API_URL } =  getEncVariables();
