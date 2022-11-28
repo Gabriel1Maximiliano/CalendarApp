@@ -6,7 +6,7 @@ export const Navbar = () => {
         <span className="navbar-brand">
             <i className="fas fa-calendar-alt"></i>
             &nbsp;
-            Fernando
+           Gabriel
         </span>
 
         <button className="btn btn-outline-danger">
