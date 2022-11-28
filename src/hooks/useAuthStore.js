@@ -16,8 +16,9 @@ dispatch(onChecking());
         const { data } = await calendarApi.post('/auth/login',{ email,password });
        localStorage.setItem('token', data.token);
        localStorage.setItem('token-init-date', new Date().getTime());
-       console.log(data)
+       
        dispatch( onLogin({ name:data.name,uid:data.id }) ); 
+     
       } catch (error) {
         
         dispatch( onLogout('Invalid credentials') );
@@ -27,7 +28,23 @@ dispatch(onChecking());
         }, 10);
       }
    }
-
+      const startRegisterUser = async({name,email,registerPassword1,registerPassword2}) => {
+         console.log({name,email,registerPassword1,registerPassword2})
+        try {
+          const { data } = await calendarApi.post('/auth/register',{name,email,password:registerPassword1});
+         localStorage.setItem('token', data.token);
+         localStorage.setItem('token-init-date', new Date().getTime());
+         console.log(data)
+         dispatch( onLogin({ name:data.name,uid:data.id }) ); 
+        } catch (error) {
+          console.log(error)
+          dispatch( onLogout(error.response.data.msg || '') );
+  
+          setTimeout(() => {
+              dispatch( clearErrorMessage() );
+          }, 10);
+        }
+      }
   return{
     //* Properties
     status,
@@ -35,6 +52,7 @@ dispatch(onChecking());
     errorMessage,
 
     //*Methods
-    startLogin
+    startLogin,
+    startRegisterUser,
   }
 }

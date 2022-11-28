@@ -22,20 +22,26 @@ export const LoginPage = () => {
 
    const {  registerName,registerEmail,registerPassword1,registerPassword2, onInputChange:onRegisterChange, } = useForm( registerFormFields );
 
-   const { startLogin,errorMessage } =useAuthStore();
+   const { startLogin,errorMessage='',startRegisterUser } =useAuthStore();
   
  const onLoginSubmit = ( event ) => {
     event.preventDefault();
     startLogin({email:loginEmail,password:loginPassword });
+    
  };
 
  const onRegsiterSubmit = ( event ) => {
+    
     event.preventDefault();
-    console.log('en regidter');
+
+    if( registerPassword1 !== registerPassword2 ){
+        Swal.fire('Register error', 'The passwords aer different ','error')
+    }
+    startRegisterUser({name:registerName,email:registerEmail,registerPassword1:registerPassword1,registerPassword2:registerPassword2})
  };
 
  useEffect(() => {
-  if( errorMessage === undefined ){
+  if( errorMessage.length > 1 ){
     Swal.fire('Authentication error',errorMessage,'error');
   }
  
