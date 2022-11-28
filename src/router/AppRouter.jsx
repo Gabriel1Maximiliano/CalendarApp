@@ -7,7 +7,7 @@ import { getEncVariables } from '../helpers/getEncVariables';
 
 export const AppRouter = () => {
 
-    const authStatus = 'authenticated'; // 'authenticated'; // 'not-authenticated';
+    const authStatus = 'not-authenticated'; // 'authenticated'; // 'not-authenticated';
 
  console.log(getEncVariables());
     return (
