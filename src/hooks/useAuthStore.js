@@ -9,7 +9,7 @@ export const useAuthStore = () => {
 
    const { status,user,errorMessage } = useSelector( (state) =>state.auth  );
   
-   const startLogin = async( {email,password} ) => {
+   const startLogin = async( { email,password } ) => {
       
 dispatch(onChecking());
       try {
