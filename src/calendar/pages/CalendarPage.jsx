@@ -16,7 +16,9 @@ import { Navbar } from '../components/Navbar';
 export const CalendarPage = () => {
 
   const { user } = useAuthStore();
+
   const { openDateModal } = useUiStore();
+
   const { events, setActiveEvent, startLoadingEvents } = useCalendarStore();
 
   const [ lastView, setLastView ] = useState(localStorage.getItem('lastView') || 'week' );
@@ -24,9 +26,9 @@ export const CalendarPage = () => {
   const eventStyleGetter = ( event, start, end, isSelected ) => {
 
     const isMyEvent = ( user.uid === event.user._id ) || ( user.uid === event.user.uid );
-
+   console.log({isMyEvent})
     const style = {
-      backgroundColor: isMyEvent ? '#347CF7' : '#465660',
+      backgroundColor: isMyEvent ? '#347CF7' : '#7F8089',
       borderRadius: '0px',
       opacity: 0.8,
       color: 'white'
