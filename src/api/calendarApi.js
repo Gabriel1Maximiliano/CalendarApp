@@ -1,24 +1,25 @@
+
 import axios from 'axios';
-import { getEncVariables } from '../helpers/getEncVariables';
+import { getEnvVariables } from '../hooks/getEnvVarables';
 
 
-const { REACT_APP_VITE_API_URL } =  getEncVariables();
+const { REACT_APP_VITE_API_URL } = getEnvVariables()
 
- const calendarApi = axios.create({
-   
-    baseURL:REACT_APP_VITE_API_URL
- })
-  
 
-//Todo config interceptors
+const calendarApi = axios.create({
+    baseURL: REACT_APP_VITE_API_URL
+});
 
-calendarApi.interceptors.request.use(config=>{
-config.headers={
-   ...config.headers,
-   'x-token':localStorage.getItem('token')
-}
+// Todo: configurar interceptores
+calendarApi.interceptors.request.use( config => {
 
-   return config;
+    config.headers = {
+        ...config.headers,
+        'x-token': localStorage.getItem('token')
+    }
+
+    return config;
 })
 
-export default  calendarApi
+
+export default calendarApi;

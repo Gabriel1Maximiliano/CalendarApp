@@ -2,67 +2,69 @@ import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { useAuthStore } from '../../hooks/useAuthStore';
 import { useForm } from '../../hooks/useForm';
+
 import './LoginPage.css';
 
-const loginFormFields ={
-    loginPassword:'',
-    loginEmail:''
-};
+const loginFormFields = {
+    loginEmail:    '',
+    loginPassword: '',
+}
 
-const registerFormFields ={
-    registerName:'',
-    registerEmail:'',
-    registerPassword1:'',
-    registerPassword2:''
-};
+const registerFormFields = {
+    registerName:      '',
+    registerEmail:     '',
+    registerPassword:  '',
+    registerPassword2: '',
+}
+
+
 
 export const LoginPage = () => {
 
-   const { loginPassword, loginEmail,  onInputChange:onLoginChange, } = useForm( loginFormFields );
+    const { startLogin, errorMessage, startRegister } = useAuthStore();
 
-   const {  registerName,registerEmail,registerPassword1,registerPassword2, onInputChange:onRegisterChange, } = useForm( registerFormFields );
+    const { loginEmail, loginPassword, onInputChange:onLoginInputChange } = useForm( loginFormFields );
+    const { registerEmail, registerName, registerPassword, registerPassword2, onInputChange:onRegisterInputChange } = useForm( registerFormFields );
 
-   const { startLogin,errorMessage='',startRegisterUser } =useAuthStore();
-  
- const onLoginSubmit = ( event ) => {
-    event.preventDefault();
-    startLogin({email:loginEmail,password:loginPassword });
-    
- };
-
- const onRegsiterSubmit = ( event ) => {
-    
-    event.preventDefault();
-
-    if( registerPassword1 !== registerPassword2 ){
-        Swal.fire('Register error', 'The passwords aer different ','error')
+    const loginSubmit = ( event ) => {
+        event.preventDefault();
+        startLogin({ email: loginEmail, password: loginPassword });
     }
-    startRegisterUser({name:registerName,email:registerEmail,registerPassword1:registerPassword1,registerPassword2:registerPassword2})
- };
 
- useEffect(() => {
-  if( errorMessage.length > 1 ){
-    Swal.fire('Authentication error',errorMessage,'error');
-  }
- 
-  
- }, [errorMessage])
- 
+    const registerSubmit = ( event ) => {
+        event.preventDefault();
+        if ( registerPassword !== registerPassword2 ) {
+            Swal.fire('Error en registro', 'Contraseñas no son iguales', 'error');
+            return;
+        }
+
+        startRegister({ name: registerName, email: registerEmail, password: registerPassword });
+    }
+
+
+    useEffect(() => {
+      if ( errorMessage !== undefined ) {
+        Swal.fire('Error en la autenticación', errorMessage, 'error');
+      }    
+    }, [errorMessage])
+    
+
+
 
     return (
         <div className="container login-container">
             <div className="row">
                 <div className="col-md-6 login-form-1">
                     <h3>Ingreso</h3>
-                    <form onSubmit={ onLoginSubmit } >
+                    <form onSubmit={ loginSubmit }>
                         <div className="form-group mb-2">
                             <input 
                                 type="text"
                                 className="form-control"
                                 placeholder="Correo"
-                                name='loginEmail'
+                                name="loginEmail"
                                 value={ loginEmail }
-                                onChange={ onLoginChange }
+                                onChange={ onLoginInputChange }
                             />
                         </div>
                         <div className="form-group mb-2">
@@ -70,16 +72,16 @@ export const LoginPage = () => {
                                 type="password"
                                 className="form-control"
                                 placeholder="Contraseña"
-                                name='loginPassword'
+                                name="loginPassword"
                                 value={ loginPassword }
-                                onChange={ onLoginChange }
+                                onChange={ onLoginInputChange }
                             />
                         </div>
                         <div className="d-grid gap-2">
                             <input 
                                 type="submit"
                                 className="btnSubmit"
-                              
+                                value="Login" 
                             />
                         </div>
                     </form>
@@ -87,15 +89,15 @@ export const LoginPage = () => {
 
                 <div className="col-md-6 login-form-2">
                     <h3>Registro</h3>
-                    <form onSubmit={ onRegsiterSubmit } >
+                    <form onSubmit={ registerSubmit }>
                         <div className="form-group mb-2">
                             <input
                                 type="text"
                                 className="form-control"
                                 placeholder="Nombre"
-                                name='registerName'
+                                name="registerName"
                                 value={ registerName }
-                                onChange={ onRegisterChange } 
+                                onChange={ onRegisterInputChange }
                             />
                         </div>
                         <div className="form-group mb-2">
@@ -103,19 +105,19 @@ export const LoginPage = () => {
                                 type="email"
                                 className="form-control"
                                 placeholder="Correo"
-                                name='registerEmail'
+                                name="registerEmail"
                                 value={ registerEmail }
-                                onChange={ onRegisterChange } 
+                                onChange={ onRegisterInputChange }
                             />
                         </div>
                         <div className="form-group mb-2">
                             <input
                                 type="password"
                                 className="form-control"
-                                placeholder="Contraseña"
-                                name='registerPassword1'
-                                value={ registerPassword1 }
-                                onChange={ onRegisterChange }  
+                                placeholder="Contraseña" 
+                                name="registerPassword"
+                                value={ registerPassword }
+                                onChange={ onRegisterInputChange }
                             />
                         </div>
 
@@ -123,10 +125,10 @@ export const LoginPage = () => {
                             <input
                                 type="password"
                                 className="form-control"
-                                placeholder="Repita la contraseña"
-                                name='registerPassword2'
+                                placeholder="Repita la contraseña" 
+                                name="registerPassword2"
                                 value={ registerPassword2 }
-                                onChange={ onRegisterChange }   
+                                onChange={ onRegisterInputChange }
                             />
                         </div>
 
