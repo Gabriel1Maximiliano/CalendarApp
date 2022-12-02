@@ -2,6 +2,8 @@
 // yarn add -D whatwg-fetch
 // import 'whatwg-fetch'; 
 
+
+
 // En caso de encontrar paquetes que lo requieran 
 // yarn add -D setimmediate
 // import 'setimmediate';
@@ -13,6 +15,7 @@ require('dotenv').config({
 });
 
 // Realizar el mock completo de las variables de entorno
-jest.mock('./src/helpers/getEnvVariables', () => ({ // asegurarse que la ruta es la correcta
+jest.mock('./src/hooks/getEnvVarables', () => ({ // asegurarse que la ruta es la correcta
     getEnvVariables: () => ({ ...process.env })
 }));
+
