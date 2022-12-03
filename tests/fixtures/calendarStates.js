@@ -14,7 +14,7 @@ export const events =[{
    start: new Date('2022-11-21 13:00:00'),
    end: new Date('2022-11-21 15:00:00'),
    title: 'Cumpleaños de Martina',
-   notes: 'Hay que comprar el pasteluna remera de Henry'
+   notes: 'Hay que comprar remera de Henry'
 }] 
 
 export const initialState = {
