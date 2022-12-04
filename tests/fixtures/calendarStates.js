@@ -1,6 +1,7 @@
 
 
-export const events =[{
+export const events =[
+    {
 
     id: '1',
     start: new Date('2022-10-21 13:00:00'),
