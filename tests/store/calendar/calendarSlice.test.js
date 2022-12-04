@@ -52,7 +52,7 @@ describe('test on calendarSlice', () => {
         expect(state.isLoadingEvents ).toBeFalsy();
         expect(state.events ).toEqual( events );
         const newState = calendarSlice.reducer(state, onLoadEvents( events ));
-        expect(newState.events.length ).toBe( 2 );
+        expect(newState.events.length ).toBe( events.length );
     })
     test('"onLogoutCalendar" should logout an user', () => {
 
