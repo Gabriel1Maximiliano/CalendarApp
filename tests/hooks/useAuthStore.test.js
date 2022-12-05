@@ -82,9 +82,11 @@ describe('Tests on useAuthStore', () => {
         await waitFor(
             () => expect(result.current.errorMessage).toBe(undefined)
         )
+       
     });
 
     test('startLogin should create an user', async() => { 
+
         const newUser = { email:'some@googlecom',password:'any-password',name:'Lola test' };
         const mockStore = getMockStore({ ...notAuthenticatedState });
         const { result } = renderHook(() => useAuthStore(), {
@@ -109,5 +111,25 @@ describe('Tests on useAuthStore', () => {
             status: 'authenticated',
             user: { name: 'Lola test', uid: undefined }
           });
-     })
+          spy.mockRestore()
+     }); //
+     test('startregister should fails', async() => { 
+        
+        const mockStore = getMockStore({ ...notAuthenticatedState });
+        const { result } = renderHook(() => useAuthStore(), {
+            wrapper: ({ children }) => <Provider store={mockStore} >{children}</Provider>
+        });
+     
+
+        await act(async () => {
+            await result.current.startRegister(testUserCredentials);
+        });
+        const { errorMessage, status, user } = result.current;
+        expect({ errorMessage, status, user } ).toEqual( {
+            errorMessage: "User already exists ",
+               status: "not-authenticated",
+              user:{},
+          });
+          
+      })
 }); 
