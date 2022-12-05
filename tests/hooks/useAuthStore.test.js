@@ -113,7 +113,7 @@ describe('Tests on useAuthStore', () => {
           });
           spy.mockRestore()
      }); //
-     test('startregister should fails', async() => { 
+     test('startRegister should fails', async() => { 
         
         const mockStore = getMockStore({ ...notAuthenticatedState });
         const { result } = renderHook(() => useAuthStore(), {
@@ -131,5 +131,47 @@ describe('Tests on useAuthStore', () => {
               user:{},
           });
           
-      })
+      });
+      test('checkAuthToken should logout if there is no token', async() => { 
+        const mockStore = getMockStore({ ...initialState });
+        const { result } = renderHook(() => useAuthStore(), {
+            wrapper: ({ children }) => <Provider store={mockStore} >{children}</Provider>
+        });
+        
+        await act(async () => {
+            await result.current.checkAuthToken();
+        });
+
+        const { errorMessage, status, user } = result.current;
+
+        expect({ errorMessage, status, user } ).toEqual( {
+            errorMessage: undefined,
+               status: "not-authenticated",
+              user:{},
+          });
+
+       });
+       test('checkAuthToken should authencate a user if there is token', async() => { 
+        
+        const { data } = await calendarApi.post('/auth/login',testUserCredentials);
+        localStorage.setItem('token', data.token);
+       
+        const mockStore = getMockStore({ ...initialState });
+        const { result } = renderHook(() => useAuthStore(), {
+            wrapper: ({ children }) => <Provider store={mockStore} >{children}</Provider>
+        });
+        
+        await act(async () => {
+            await result.current.checkAuthToken();
+        });
+
+        const { errorMessage, status, user } = result.current;
+
+        expect({  errorMessage, status, user} ).toEqual(  {
+            errorMessage: undefined,
+            status: "authenticated",
+            user: { name: 'Test User', uid: "638ddfca07e6c05fcf15763e" }
+          });
+
+        })
 }); 
