@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`tests on < AppRouter /> should  1`] = `
+exports[`tests on < AppRouter /> should show login if we are not authenticated 1`] = `
 <div>
   <div
     class="container login-container"
