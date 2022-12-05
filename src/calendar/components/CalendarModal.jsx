@@ -11,6 +11,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import es from 'date-fns/locale/es';
 import { useCalendarStore, useUiStore } from '../../hooks';
+import { getEnvVariables } from '../../hooks/getEnvVarables';
 
 
 registerLocale( 'es', es );
@@ -27,7 +28,11 @@ const customStyles = {
     },
 };
 
-Modal.setAppElement('#root');
+// aca evito el error del modal en el test 
+if( getEnvVariables().REACT_APP_MODE !=='test' ){
+
+    Modal.setAppElement('#root');
+}
 
 export const CalendarModal = () => {
 
