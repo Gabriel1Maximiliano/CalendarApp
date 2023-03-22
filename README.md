@@ -5,7 +5,14 @@
 1. Rename env.template for .env
 ```
 VITE_API_URL = http://localhost:4000/api
-```
-## Aplicacion de calendario 
 
-para levantar el front nmp i previo a poner sus variables de entorno y luego yarn start
+```
+## Aplicación de calendario reailzada con React Javascript y pruebas unitarias con Jest
+
+Para levantar el front 
+
+```
+yarn
+
+```
+  previo a poner sus variables de entorno y luego yarn start
